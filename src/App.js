@@ -10,7 +10,7 @@ function App() {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyAolXVBph__8LXk-JukgnxDUI4LPDQAsxQ",
+    googleMapsApiKey: 'AIzaSyAolXVBph__8LXk-JukgnxDUI4LPDQAsxQ',
     libraries: ['places']
   })
 
@@ -30,17 +30,22 @@ function App() {
     if (origin.current.value === '' || destination.current.value === '')
       return
     const directionsService = new window.google.maps.DirectionsService()
-    const results = await directionsService.route(
-      {
-        origin: origin.current.value,
-        destination: destination.current.value,
-        travelMode: window.google.maps.TravelMode.DRIVING
-      }
-
-    );
-    setdirection(results)
-    setdistance(results.routes[0].legs[0].distance.text)
-    setduration(results.routes[0].legs[0].duration.text)
+    try{
+      const results = await directionsService.route(
+        {
+          origin: origin.current.value,
+          destination: destination.current.value,
+          travelMode: window.google.maps.TravelMode.DRIVING
+        }
+  
+      );
+      setdirection(results)
+      setdistance(results.routes[0].legs[0].distance.text)
+      setduration(results.routes[0].legs[0].duration.text)
+    }
+    catch(error){
+      alert('Not possible')
+    }
 
   }
 
