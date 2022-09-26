@@ -40,6 +40,8 @@ code {
 
 @media only screen and (max-width:768px) {
   .Components{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
