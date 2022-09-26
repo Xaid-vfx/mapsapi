@@ -3,8 +3,8 @@ import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService } from '@rea
 import Map from './Components/Map'
 import { useRef } from 'react'
 import { useState } from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faLocationPin} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationPin } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
 
@@ -19,8 +19,7 @@ function App() {
   const [duration, setduration] = useState('')
   const [show, setshow] = useState(0)
 
-  // const [origin, setorigin] = useState('')
-  // const [destination, setdestination] = useState('')
+  const [visible, setvisible] = useState(0)
 
   const origin = useRef('');
   const destination = useRef('');
@@ -29,22 +28,27 @@ function App() {
 
     if (origin.current.value === '' || destination.current.value === '')
       return
-    const directionsService = new window.google.maps.DirectionsService()
-    try{
+
+
+      try {
+      const directionsService = new window.google.maps.DirectionsService()
+
       const results = await directionsService.route(
         {
           origin: origin.current.value,
           destination: destination.current.value,
           travelMode: window.google.maps.TravelMode.DRIVING
         }
-  
+
       );
+      
       setdirection(results)
       setdistance(results.routes[0].legs[0].distance.text)
       setduration(results.routes[0].legs[0].duration.text)
+      setvisible(0)
     }
-    catch(error){
-      alert('Not possible')
+    catch (error) {
+      setvisible(1)
     }
 
   }
@@ -53,8 +57,8 @@ function App() {
   return isLoaded ? (
     <div>
       <div className='navbar'>
-        <img src='https://static.wixstatic.com/media/7650b3_a6cf687f91264ae08fbd262658eb2bc6~mv2.png/v1/fill/w_268,h_112,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Graviti%20Logo.png' alt='1'/>
-        
+        <img src='https://static.wixstatic.com/media/7650b3_a6cf687f91264ae08fbd262658eb2bc6~mv2.png/v1/fill/w_268,h_112,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Graviti%20Logo.png' alt='1' />
+
       </div>
       <div className='Bigcontainer'>
         <p id="para">Let's calculate <strong>distance</strong> from Google Maps</p>
@@ -67,18 +71,19 @@ function App() {
 
                 <div>
                   <p className='inputtext'>Source</p>
-                  <FontAwesomeIcon className='icon' icon={faLocationPin}/>
+                  <FontAwesomeIcon className='icon' icon={faLocationPin} />
                   <Autocomplete>
-                    <input type='text' ref={origin} className='inputbox' />
+                    <input type='text' ref={origin} className='inputbox' id={visible?'red':''}/>
                   </Autocomplete>
+                  <p id={visible?'redpara':'redparahide'}><small>Please enter correctly</small></p>
 
                 </div>
-                <br/>
+                <br />
                 <div >
                   <p className='inputtext'>Destination</p>
-                  <FontAwesomeIcon className='icon' icon={faLocationPin}/>
+                  <FontAwesomeIcon className='icon' icon={faLocationPin} />
                   <Autocomplete>
-                    <input type='text'ref={destination} className='inputbox' />
+                    <input type='text' ref={destination} className='inputbox'  id={visible?'red':''}/>
                   </Autocomplete>
                 </div>
 
