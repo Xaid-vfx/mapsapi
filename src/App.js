@@ -1,25 +1,100 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService } from '@react-google-maps/api'
+import Map from './Components/Map'
+import { useRef } from 'react'
+import { useState } from 'react'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faLocationPin} from '@fortawesome/free-solid-svg-icons'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyAolXVBph__8LXk-JukgnxDUI4LPDQAsxQ",
+    libraries: ['places']
+  })
+
+  const [direction, setdirection] = useState()
+  const [distance, setdistance] = useState('')
+  const [duration, setduration] = useState('')
+  const [show, setshow] = useState(0)
+
+  // const [origin, setorigin] = useState('')
+  // const [destination, setdestination] = useState('')
+
+  const origin = useRef('');
+  const destination = useRef('');
+
+  async function calcroute() {
+
+    if (origin.current.value === '' || destination.current.value === '')
+      return
+    const directionsService = new window.google.maps.DirectionsService()
+    const results = await directionsService.route(
+      {
+        origin: origin.current.value,
+        destination: destination.current.value,
+        travelMode: window.google.maps.TravelMode.DRIVING
+      }
+
+    );
+    setdirection(results)
+    setdistance(results.routes[0].legs[0].distance.text)
+    setduration(results.routes[0].legs[0].duration.text)
+
+  }
+
+
+  return isLoaded ? (
+    <div>
+      <div className='navbar'>
+        <img src='https://static.wixstatic.com/media/7650b3_a6cf687f91264ae08fbd262658eb2bc6~mv2.png/v1/fill/w_268,h_112,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Graviti%20Logo.png' alt='1'/>
+        
+      </div>
+      <div className='Bigcontainer'>
+        <p id="para">Let's calculate <strong>distance</strong> from Google Maps</p>
+        <div className='Components'>
+          <div className='inputs'>
+
+            <div className='container'>
+
+              <div className='inputboxes'>
+
+                <div>
+                  <p className='inputtext'>Source</p>
+                  <FontAwesomeIcon className='icon' icon={faLocationPin}/>
+                  <Autocomplete>
+                    <input type='text' ref={origin} className='inputbox' />
+                  </Autocomplete>
+
+                </div>
+                <br/>
+                <div >
+                  <p className='inputtext'>Destination</p>
+                  <FontAwesomeIcon className='icon' icon={faLocationPin}/>
+                  <Autocomplete>
+                    <input type='text'ref={destination} className='inputbox' />
+                  </Autocomplete>
+                </div>
+
+              </div>
+              <button className='calcbtn' onClick={() => { setshow(1); calcroute(); }}>Calculate</button>
+            </div>
+
+            <div className='distance'><p className='distancetext'>Distance</p><strong>{distance}</strong></div>
+            <div className='distance'><p className='distancetext'>ETA</p><strong>{duration}</strong></div>
+            <p><small>The distance and ETA between {origin.current.value ? origin.current.value : " - "} and {destination.current.value ? destination.current.value : " - "} is {distance ? distance : " - "} and {duration ? duration : " - "} respectively.</small> </p>
+          </div>
+
+
+          <div className='map'>
+            <Map isLoaded={isLoaded} direction={direction} show={show} />
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  )
+    : <></>
 }
 
-export default App;
+export default App

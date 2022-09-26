@@ -1,0 +1,132 @@
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 60vh;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    justify-content: space-between;
+}
+
+.calcbtn {
+    padding: 20px;
+    padding-inline:30px;
+    border-radius: 20px;
+    background-color: #00008B;
+    color: white;
+    border: 0;
+}
+
+.calcbtn:hover {
+    background-color: white;
+    color: #00008B;
+    border: 1px solid;
+}
+
+.inputtext {
+    font-size: 12px;
+    padding: 0;
+}
+
+.distance {
+    background-color: white;
+    padding: 15px;
+    margin-block: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.distance p{
+    font-size: larger !important;
+}
+
+.distance strong{
+    color: #43A6C6;
+    font-weight: 600;
+    font-size: x-large;
+}
+
+.inputbox{
+    padding: 20px;
+    padding-left: 40px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.inputs p{
+    font-size: small;
+}
+.Bigcontainer{
+    background-color: #e8f4f8;
+    padding-top: 5vh;
+}
+
+#para{
+    text-align: center;
+    color:#00008B;
+}
+
+.inputbox[type=text]{
+    font-size:large;
+}
+
+.icon{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width:768px) {
+    .inputs {
+        display: flex;
+        max-width: 40vh;
+    }
+
+    .inputbox{
+        max-width: 30vh;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;  
+    }
+    .distance {
+        
+        max-width: 35vh;
+        background-color: white;
+        padding-inline: 10px;
+        padding-block: 5px;
+        margin-block: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content:baseline;
+        margin-left: 3%;
+    }
+
+    .distance p{
+        font-size: medium !important;
+    }
+    
+    .distance strong{
+        color: #43A6C6;
+        font-weight: 600;
+        font-size: x-large;
+    }
+
+    .map{
+        display: flex;
+        justify-content: center;
+    }
+    
+  }
+
+
+  
