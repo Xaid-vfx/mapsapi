@@ -10,7 +10,7 @@ function App() {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyAolXVBph__8LXk-JukgnxDUI4LPDQAsxQ',
+    googleMapsApiKey: process.env.REACT_APP_API_KEY,
     libraries: ['places']
   })
 
