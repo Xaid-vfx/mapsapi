@@ -57,8 +57,7 @@ function App() {
   return isLoaded ? (
     <div>
       <div className='navbar'>
-        <img src='https://static.wixstatic.com/media/7650b3_a6cf687f91264ae08fbd262658eb2bc6~mv2.png/v1/fill/w_268,h_112,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Graviti%20Logo.png' alt='1' />
-
+        <div className='title'> MeterRoutes</div>
       </div>
       <div className='Bigcontainer'>
         <p id="para">Let's calculate <strong>distance</strong> from Google Maps</p>
@@ -101,6 +100,9 @@ function App() {
             <Map isLoaded={isLoaded} direction={direction} show={show} />
           </div>
         </div>
+      </div>
+      <div className='Footer'>
+        Built by Zaid
       </div>
     </div>
   )
