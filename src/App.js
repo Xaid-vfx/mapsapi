@@ -30,7 +30,7 @@ function App() {
       return
 
 
-      try {
+    try {
       const directionsService = new window.google.maps.DirectionsService()
 
       const results = await directionsService.route(
@@ -41,7 +41,7 @@ function App() {
         }
 
       );
-      
+
       setdirection(results)
       setdistance(results.routes[0].legs[0].distance.text)
       setduration(results.routes[0].legs[0].duration.text)
@@ -72,9 +72,9 @@ function App() {
                   <p className='inputtext'>Source</p>
                   <FontAwesomeIcon className='icon' icon={faLocationPin} />
                   <Autocomplete>
-                    <input type='text' ref={origin} className='inputbox' id={visible?'red':''}/>
+                    <input type='text' ref={origin} className='inputbox' id={visible ? 'red' : ''} />
                   </Autocomplete>
-                  <p id={visible?'redpara':'redparahide'}><small>Please enter correctly</small></p>
+                  <p id={visible ? 'redpara' : 'redparahide'}><small>Please enter correctly</small></p>
 
                 </div>
                 <br />
@@ -82,7 +82,7 @@ function App() {
                   <p className='inputtext'>Destination</p>
                   <FontAwesomeIcon className='icon' icon={faLocationPin} />
                   <Autocomplete>
-                    <input type='text' ref={destination} className='inputbox'  id={visible?'red':''}/>
+                    <input type='text' ref={destination} className='inputbox' id={visible ? 'red' : ''} />
                   </Autocomplete>
                 </div>
 
@@ -101,9 +101,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className='Footer'>
-        Built by Zaid
-      </div>
+
     </div>
   )
     : <></>
